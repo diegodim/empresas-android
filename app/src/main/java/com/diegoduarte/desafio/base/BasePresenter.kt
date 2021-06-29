@@ -16,7 +16,7 @@ abstract class BasePresenter {
         compositeDisposable.clear()
     }
 
-    protected fun addDisposable(disposable: Disposable) {
+    fun addDisposable(disposable: Disposable) {
         compositeDisposable.add(disposable)
     }
 }

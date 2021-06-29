@@ -18,7 +18,7 @@ class LoginPresenter(
 
     override fun login(email: String, password: String) {
         view.showLoadingDialog()
-        repository.login(email, password)
+        val disposable = repository.login(email, password)
             .observeOn(schedulerProvider.ui())
             ?.subscribeOn(schedulerProvider.io())
             ?.subscribe(
@@ -30,6 +30,12 @@ class LoginPresenter(
                         token.uid = it.headers().get("uid")
                         token.client = it.headers().get("client")
                         view.attemptLogin(token)
+
+                        repository.getEnterprise(token, "Fluoretiq Limited")
+                            .observeOn(schedulerProvider.ui())
+                            ?.subscribeOn(schedulerProvider.io())
+                            ?.subscribe()
+
                     }else{
 
                         view.showError(Errors.LOGIN_ERROR)
@@ -43,6 +49,7 @@ class LoginPresenter(
                     view.hideLoadingDialog()
                 }
             )
+        addDisposable(disposable!!)
     }
 
 }

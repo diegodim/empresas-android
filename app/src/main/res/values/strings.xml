@@ -1,18 +1,24 @@
 <resources>
     <string name="app_name">desafio IOasys</string>
 
-    <string name="hint_email">E-mail</string>
-    <string name="hint_password">Senha</string>
-    <string name="hint_enter">ENTRAR</string>
-
     <string name="error_message_login">Credenciais informadas são inválidas, tente novamente.</string>
     <string name="error_message_internet">Sem conexão com internet.</string>
 
-    <string name="message_welcome">BEM-VINDO AO EMPRESAS</string>
-
+    <string name="content_txt_welcome">BEM-VINDO AO EMPRESAS</string>
     <string name="content_image_logo">Logo IOasys</string>
-    <string name="content_description">Lorem ipsum dolor sit amet, contetur adipiscing elit. Nunc accumsan.</string>
+    <string name="content_login_description">Lorem ipsum dolor sit amet, contetur adipiscing elit. Nunc accumsan.</string>
+    <string name="content_image_item">Imagem da empresa.</string>
+    <string name="content_txt_name">Empresa</string>
+    <string name="content_txt_type">Negócio</string>
+    <string name="content_txt_country">Brasil</string>
+    <string name="content_txt_email">E-mail</string>
+    <string name="content_txt_password">Senha</string>
+    <string name="content_button_enter">ENTRAR</string>
 
     <string name="title_search">Pesquisar</string>
+    <string name="content_image_toolbar">Toolbar Logo</string>
+
+    <string name="url_image">https://empresas.ioasys.com.br/api/v1/</string>
+
 
 </resources>

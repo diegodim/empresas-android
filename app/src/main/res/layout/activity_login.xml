@@ -26,7 +26,7 @@
         android:layout_width="147dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="48.5dp"
-        android:text="@string/message_welcome"
+        android:text="@string/content_txt_welcome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_imv_log" />
@@ -43,7 +43,7 @@
         android:letterSpacing="-0.01"
         android:lineSpacingExtra="3.5sp"
         android:gravity="center_horizontal"
-        android:text="@string/content_description"
+        android:text="@string/content_login_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_txt_welcome"
@@ -69,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
-            android:hint="@string/hint_email"
+            android:hint="@string/content_txt_email"
             android:inputType="textEmailAddress"
             android:textSize="17sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -94,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
-            android:hint="@string/hint_password"
+            android:hint="@string/content_txt_password"
             android:inputType="textPassword"
             android:textSize="17sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -106,7 +106,7 @@
         android:layout_marginStart="45dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="45dp"
-        android:text="@string/hint_enter"
+        android:text="@string/content_button_enter"
         android:textAppearance="@style/TextStyle4"
         android:theme="@style/Theme.DesafioIOasys.Button"
         app:layout_constraintEnd_toEndOf="parent"
