@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">desafio IOasys</string>
+
+    <string name="hint_email">E-mail</string>
+    <string name="hint_password">Senha</string>
+    <string name="hint_enter">ENTRAR</string>
+
+    <string name="error_message_login">Credenciais informadas são inválidas, tente novamente.</string>
+    <string name="error_message_internet">Sem conexão com internet.</string>
+
+    <string name="message_welcome">BEM-VINDO AO EMPRESAS</string>
+
+    <string name="content_image_logo">Logo IOasys</string>
+    <string name="content_description">Lorem ipsum dolor sit amet, contetur adipiscing elit. Nunc accumsan.</string>
+
+    <string name="title_search">Pesquisar</string>
+
+</resources>
