@@ -1,9 +1,11 @@
 package com.diegoduarte.desafio.home.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +14,7 @@ import com.diegoduarte.desafio.base.BaseActivity
 import com.diegoduarte.desafio.base.BasePresenter
 import com.diegoduarte.desafio.data.model.Enterprise
 import com.diegoduarte.desafio.home.HomeContract
+import com.diegoduarte.desafio.login.view.LoginActivity
 import com.diegoduarte.desafio.utils.SearchObservable
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -57,6 +60,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
             ?.subscribe{ presenter.searchByName(it.toString())}
 
         (presenter as BasePresenter).addDisposable(disposable!!)
+
         searchViewMenuItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
                 searchView.queryHint = getString(R.string.content_search_view)
@@ -106,5 +110,12 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         layoutHome.visibility = View.VISIBLE
         layoutSearchEmpty.visibility = View.GONE
 
+    }
+
+    override fun returnToLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+        Toast.makeText(this,"A sessão expirou.",Toast.LENGTH_LONG).show()
     }
 }

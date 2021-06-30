@@ -25,12 +25,18 @@ class HomePresenter(
             .observeOn(schedulerProvider.ui())
             ?.subscribeOn(schedulerProvider.io())
             ?.subscribe{
-                if(it.isSuccessful && it.body()!!.enterprises.isNotEmpty()) {
-                    view.showEnterprises(it.body()!!.enterprises)
+                if(it.isSuccessful) {
+
+                    if(it.body()!!.enterprises.isNotEmpty()) {
+                        view.showEnterprises(it.body()!!.enterprises)
+                    } else{
+                        view.showEmptySearch()
+                    }
                 }
-                else{
-                    view.showEmptySearch()
+                else if(it.code() == 401){
+                    view.returnToLogin()
                 }
+
             }
 
         addDisposable(disposable!!)

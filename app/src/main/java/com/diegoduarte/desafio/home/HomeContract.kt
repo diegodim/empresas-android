@@ -10,6 +10,7 @@ interface HomeContract {
         fun showEnterprises(enterprises: List<Enterprise>)
         fun showEmptySearch()
         fun showHomeLayout()
+        fun returnToLogin()
     }
 
     interface Presenter{
