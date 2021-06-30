@@ -1,6 +1,5 @@
 package com.diegoduarte.desafio.login
 
-import android.util.Log
 import com.diegoduarte.desafio.base.BasePresenter
 import com.diegoduarte.desafio.data.model.Token
 import com.diegoduarte.desafio.data.source.Repository
@@ -30,11 +29,6 @@ class LoginPresenter(
                         token.uid = it.headers().get("uid")
                         token.client = it.headers().get("client")
                         view.attemptLogin(token)
-
-                        repository.getEnterprise(token, "Fluoretiq Limited")
-                            .observeOn(schedulerProvider.ui())
-                            ?.subscribeOn(schedulerProvider.io())
-                            ?.subscribe()
 
                     }else{
 

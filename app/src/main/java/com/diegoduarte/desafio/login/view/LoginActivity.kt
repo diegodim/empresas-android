@@ -55,14 +55,17 @@ class LoginActivity : BaseActivity(),
     override fun getPresenter(): BasePresenter = presenter as BasePresenter
 
     override fun showLoadingDialog() {
-        //TODO("Not yet implemented")
-
+        buttonEnter.isEnabled = false
         loadingLayout.visibility = View.VISIBLE
+        editTextEmail.isEnabled = false
+        editTextPassword.isEnabled = false
     }
 
     override fun hideLoadingDialog() {
-        //TODO("Not yet implemented")
+        buttonEnter.isEnabled = true
         loadingLayout.visibility = View.GONE
+        editTextEmail.isEnabled = true
+        editTextPassword.isEnabled = true
     }
 
     override fun showError(error: Errors) {
@@ -71,8 +74,6 @@ class LoginActivity : BaseActivity(),
             Errors.INTERNET_ERROR->editTextPassword.error = getString(R.string.error_message_internet)
             Errors.LOGIN_ERROR->editTextPassword.error = getString(R.string.error_message_login)
         }
-
-
     }
 
     override fun attemptLogin(token: Token) {

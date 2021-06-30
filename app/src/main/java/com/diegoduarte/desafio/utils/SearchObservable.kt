@@ -23,8 +23,8 @@ class SearchObservable {
             }
         })
         return subject
-            ?.debounce(300, TimeUnit.MILLISECONDS)
-            ?.filter { text -> text.isNotEmpty() && text.length>= 3}
+            ?.debounce(100, TimeUnit.MILLISECONDS)
+            ?.filter { text -> text.isNotEmpty()}
             ?.map{text -> text.lowercase(Locale.getDefault()).trim()}
             ?.distinctUntilChanged()
     }

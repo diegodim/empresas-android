@@ -14,13 +14,24 @@ class HomePresenter(
     val token: Token
 ) : HomeContract.Presenter, BasePresenter() {
 
+    override fun onCreate() {
+        super.onCreate()
+        view.showHomeLayout()
+    }
 
     override fun searchByName(name: String) {
 
         val disposable = repository.getEnterprise(token, name)
             .observeOn(schedulerProvider.ui())
             ?.subscribeOn(schedulerProvider.io())
-            ?.subscribe()
+            ?.subscribe{
+                if(it.isSuccessful && it.body()!!.enterprises.isNotEmpty()) {
+                    view.showEnterprises(it.body()!!.enterprises)
+                }
+                else{
+                    view.showEmptySearch()
+                }
+            }
 
         addDisposable(disposable!!)
     }

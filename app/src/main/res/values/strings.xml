@@ -14,11 +14,15 @@
     <string name="content_txt_email">E-mail</string>
     <string name="content_txt_password">Senha</string>
     <string name="content_button_enter">ENTRAR</string>
-
-    <string name="title_search">Pesquisar</string>
     <string name="content_image_toolbar">Toolbar Logo</string>
+    <string name="content_search_view">Search</string>
+    <string name="content_txt_home">Clique na busca para iniciar.</string>
+    <string name="content_txt_search_empty">Nenhuma empresa foi encontrada para a busca realizada.</string>
 
-    <string name="url_image">https://empresas.ioasys.com.br/api/v1/</string>
+
+    <string name="url_image">https://empresas.ioasys.com.br</string>
+
+
 
 
 </resources>

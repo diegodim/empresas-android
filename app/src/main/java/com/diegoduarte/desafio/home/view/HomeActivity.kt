@@ -3,7 +3,7 @@ package com.diegoduarte.desafio.home.view
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.LinearLayout
+import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +26,8 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
     private lateinit var searchView: SearchView
     private lateinit var recyclerView: RecyclerView
+    private lateinit var layoutHome: View
+    private lateinit var layoutSearchEmpty: View
 
     @Inject
     lateinit var presenter: HomeContract.Presenter
@@ -33,7 +35,10 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setSupportActionBar(findViewById(R.id.home_toolbar))
+        layoutHome = findViewById(R.id.home_layout_welcome)
+        layoutSearchEmpty = findViewById(R.id.home_layout_search_empty)
         initializeRecyclerView()
+        presenter.onCreate()
     }
 
     override fun getContent(): Int = R.layout.activity_home
@@ -44,12 +49,26 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         menuInflater.inflate(R.menu.home_menu, menu)
         val searchViewMenuItem: MenuItem = menu.findItem(R.id.action_search)
         searchView = searchViewMenuItem.actionView as SearchView
+
         val disposable = SearchObservable()
             .fromView(searchView)
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribeOn(Schedulers.io())
             ?.subscribe{ presenter.searchByName(it.toString())}
+
         (presenter as BasePresenter).addDisposable(disposable!!)
+        searchViewMenuItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
+                searchView.queryHint = getString(R.string.content_search_view)
+                layoutHome.visibility = View.GONE
+                return true
+            }
+            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
+                presenter.onCreate()
+                return true
+            }
+        })
+
         return super.onPrepareOptionsMenu(menu)
     }
 
@@ -58,7 +77,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         recyclerView = findViewById(R.id.home_recycler_view)
         recyclerView.setHasFixedSize(true)
         recyclerView.recycledViewPool.clear()
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerView.layoutManager = layoutManager
         recyclerView.setItemViewCacheSize(4)
         recyclerView.adapter = HomeAdapter()
@@ -66,6 +85,26 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     }
 
     override fun showEnterprises(enterprises: List<Enterprise>) {
-        (recyclerView.adapter as HomeAdapter).setList(enterprises)
+        if(searchView.query.isNotEmpty()) {
+            recyclerView.visibility = View.VISIBLE
+            layoutHome.visibility = View.GONE
+            layoutSearchEmpty.visibility = View.GONE
+            (recyclerView.adapter as HomeAdapter).setList(enterprises)
+        }
+    }
+
+    override fun showEmptySearch() {
+        if(searchView.query.isNotEmpty()) {
+            recyclerView.visibility = View.GONE
+            layoutHome.visibility = View.GONE
+            layoutSearchEmpty.visibility = View.VISIBLE
+        }
+    }
+
+    override fun showHomeLayout(){
+        recyclerView.visibility = View.GONE
+        layoutHome.visibility = View.VISIBLE
+        layoutSearchEmpty.visibility = View.GONE
+
     }
 }

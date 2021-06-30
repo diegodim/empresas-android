@@ -8,9 +8,12 @@ interface HomeContract {
 
     interface View{
         fun showEnterprises(enterprises: List<Enterprise>)
+        fun showEmptySearch()
+        fun showHomeLayout()
     }
 
     interface Presenter{
         fun searchByName(name: String)
+        fun onCreate()
     }
 }
