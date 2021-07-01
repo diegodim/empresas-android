@@ -1,6 +1,6 @@
-package com.diegoduarte.desafio.home.domain
+package com.diegoduarte.desafio.mvp.home.domain
 
-import com.diegoduarte.desafio.UseCase
+import com.diegoduarte.desafio.base.UseCase
 import com.diegoduarte.desafio.data.model.Enterprises
 import com.diegoduarte.desafio.data.model.Token
 import com.diegoduarte.desafio.data.source.Repository
@@ -17,13 +17,6 @@ class GetEnterprises(val repository: Repository, mThreadExecutor: Scheduler, mPo
         return repository.getEnterprise(params!!.token, params.name)
     }
 
-    class Params constructor(val token: Token,
-                             val name: String) {
+    data class Params constructor(val token: Token, val name: String)
 
-        companion object {
-            fun forEnterprises(token: Token, name: String): Params {
-                return Params(token, name)
-            }
-        }
-    }
 }

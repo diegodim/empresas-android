@@ -3,18 +3,13 @@ package com.diegoduarte.desafio
 import com.diegoduarte.desafio.data.model.LoginResponse
 import com.diegoduarte.desafio.data.model.Token
 import com.diegoduarte.desafio.data.source.Repository
-import com.diegoduarte.desafio.login.LoginContract
-import com.diegoduarte.desafio.login.LoginPresenter
+import com.diegoduarte.desafio.mvp.login.LoginContract
+import com.diegoduarte.desafio.mvp.login.LoginPresenter
 import com.diegoduarte.desafio.utils.Errors
 import com.diegoduarte.desafio.utils.schedulers.TestSchedulerProvider
-import hu.akarnokd.rxjava3.retrofit.Result.response
 import io.reactivex.rxjava3.core.Observable
-import okhttp3.Headers
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import okhttp3.mockwebserver.MockResponse
-import org.json.JSONObject
 import org.junit.Before
 import org.junit.Test
 import org.mockito.BDDMockito.given
@@ -59,7 +54,6 @@ class LoginPresenterUnitTest {
         //then
         then(viewMock).should(times(1)).showLoadingDialog()
         then(viewMock).should(times(1)).attemptLogin(token)
-        then(viewMock).should(times(1)).hideLoadingDialog()
         then(viewMock).shouldHaveNoMoreInteractions()
     }
 

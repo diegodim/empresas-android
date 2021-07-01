@@ -1,4 +1,4 @@
-package com.diegoduarte.desafio
+package com.diegoduarte.desafio.base
 
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Scheduler

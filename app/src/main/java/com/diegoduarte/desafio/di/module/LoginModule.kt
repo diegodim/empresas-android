@@ -2,9 +2,9 @@ package com.diegoduarte.desafio.di.module
 
 import com.diegoduarte.desafio.data.source.Repository
 import com.diegoduarte.desafio.di.scope.LoginScope
-import com.diegoduarte.desafio.login.LoginContract
-import com.diegoduarte.desafio.login.LoginPresenter
-import com.diegoduarte.desafio.login.view.LoginActivity
+import com.diegoduarte.desafio.mvp.login.LoginContract
+import com.diegoduarte.desafio.mvp.login.LoginPresenter
+import com.diegoduarte.desafio.mvp.login.view.LoginActivity
 import com.diegoduarte.desafio.utils.schedulers.SchedulerProvider
 import dagger.Module
 import dagger.Provides

@@ -12,12 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DesafioIOasys.NoActionBar">
-        <activity android:name=".home.view.HomeActivity"
-            android:launchMode = "singleTop"/>
-        <activity android:name=".login.view.LoginActivity"
-            android:launchMode = "singleTop">
+        <activity android:name="com.diegoduarte.desafio.mvp.enterprise.view.EnterpriseActivity"></activity>
+        <activity
+            android:name="com.diegoduarte.desafio.mvp.home.view.HomeActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="com.diegoduarte.desafio.mvp.login.view.LoginActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

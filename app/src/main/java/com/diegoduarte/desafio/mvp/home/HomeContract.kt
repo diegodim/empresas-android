@@ -1,8 +1,6 @@
-package com.diegoduarte.desafio.home
+package com.diegoduarte.desafio.mvp.home
 
-import androidx.appcompat.widget.SearchView
 import com.diegoduarte.desafio.data.model.Enterprise
-import io.reactivex.rxjava3.disposables.Disposable
 
 interface HomeContract {
 
@@ -11,6 +9,7 @@ interface HomeContract {
         fun showEmptySearch()
         fun showHomeLayout()
         fun returnToLogin()
+        fun onItemClick(enterprise: Enterprise)
     }
 
     interface Presenter{

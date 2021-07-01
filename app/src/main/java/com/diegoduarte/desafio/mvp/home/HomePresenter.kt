@@ -1,13 +1,11 @@
-package com.diegoduarte.desafio.home
+package com.diegoduarte.desafio.mvp.home
 
 import com.diegoduarte.desafio.base.BaseObserver
 import com.diegoduarte.desafio.base.BasePresenter
 import com.diegoduarte.desafio.data.model.Enterprises
-import com.diegoduarte.desafio.data.model.LoginResponse
 import com.diegoduarte.desafio.data.model.Token
 import com.diegoduarte.desafio.data.source.Repository
-import com.diegoduarte.desafio.home.domain.GetEnterprises
-import com.diegoduarte.desafio.utils.Errors
+import com.diegoduarte.desafio.mvp.home.domain.GetEnterprises
 import com.diegoduarte.desafio.utils.schedulers.SchedulerProvider
 import retrofit2.Response
 
@@ -33,7 +31,7 @@ class HomePresenter(
     override fun searchByName(name: String) {
 
         val disposable = getEnterprises.execute(EnterprisesObserver(),
-            GetEnterprises.Params.forEnterprises(token, name) )
+            GetEnterprises.Params(token, name) )
         addDisposable(disposable)
     }
 
@@ -61,8 +59,5 @@ class HomePresenter(
 
 
     }
-
-
-
 
 }

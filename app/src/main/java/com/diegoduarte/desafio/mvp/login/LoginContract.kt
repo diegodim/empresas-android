@@ -1,4 +1,4 @@
-package com.diegoduarte.desafio.login
+package com.diegoduarte.desafio.mvp.login
 
 import com.diegoduarte.desafio.data.model.Token
 import com.diegoduarte.desafio.utils.Errors

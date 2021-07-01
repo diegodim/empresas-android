@@ -3,9 +3,9 @@ package com.diegoduarte.desafio.di.module
 import com.diegoduarte.desafio.data.model.Token
 import com.diegoduarte.desafio.data.source.Repository
 import com.diegoduarte.desafio.di.scope.HomeScope
-import com.diegoduarte.desafio.home.HomeContract
-import com.diegoduarte.desafio.home.HomePresenter
-import com.diegoduarte.desafio.home.view.HomeActivity
+import com.diegoduarte.desafio.mvp.home.HomeContract
+import com.diegoduarte.desafio.mvp.home.HomePresenter
+import com.diegoduarte.desafio.mvp.home.view.HomeActivity
 import com.diegoduarte.desafio.utils.schedulers.SchedulerProvider
 import dagger.Module
 import dagger.Provides

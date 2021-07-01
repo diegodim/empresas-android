@@ -1,11 +1,11 @@
-package com.diegoduarte.desafio.login
+package com.diegoduarte.desafio.mvp.login
 
 import com.diegoduarte.desafio.base.BaseObserver
 import com.diegoduarte.desafio.base.BasePresenter
 import com.diegoduarte.desafio.data.model.LoginResponse
 import com.diegoduarte.desafio.data.model.Token
 import com.diegoduarte.desafio.data.source.Repository
-import com.diegoduarte.desafio.login.domain.LoginToServer
+import com.diegoduarte.desafio.mvp.login.domain.Authenticate
 import com.diegoduarte.desafio.utils.Errors
 import com.diegoduarte.desafio.utils.schedulers.SchedulerProvider
 import retrofit2.Response
@@ -17,7 +17,7 @@ class LoginPresenter(
     val schedulerProvider: SchedulerProvider
 ): BasePresenter(), LoginContract.Presenter {
 
-    private val loginToServer: LoginToServer = LoginToServer(repository,
+    private val authenticate: Authenticate = Authenticate(repository,
         schedulerProvider.io(),
         schedulerProvider.ui())
 
@@ -25,8 +25,8 @@ class LoginPresenter(
     override fun login(email: String, password: String) {
         view.showLoadingDialog()
 
-        val disposable = loginToServer.execute(LoginObserver(),
-            LoginToServer.Params.forUser(email, password))
+        val disposable = authenticate.execute(LoginObserver(),
+            Authenticate.Params(email, password))
 
         addDisposable(disposable)
     }
@@ -44,6 +44,7 @@ class LoginPresenter(
             }else{
                 // If the login Auth error
                 view.showError(Errors.LOGIN_ERROR)
+                view.hideLoadingDialog()
             }
         }
 
@@ -53,10 +54,7 @@ class LoginPresenter(
             view.hideLoadingDialog()
         }
 
-        override fun onComplete() {
-            // if observable complete
-            view.hideLoadingDialog()
-        }
     }
+
 
 }

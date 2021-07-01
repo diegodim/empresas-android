@@ -4,8 +4,8 @@ import com.diegoduarte.desafio.data.model.Enterprise
 import com.diegoduarte.desafio.data.model.Enterprises
 import com.diegoduarte.desafio.data.model.Token
 import com.diegoduarte.desafio.data.source.Repository
-import com.diegoduarte.desafio.home.HomeContract
-import com.diegoduarte.desafio.home.HomePresenter
+import com.diegoduarte.desafio.mvp.home.HomeContract
+import com.diegoduarte.desafio.mvp.home.HomePresenter
 import com.diegoduarte.desafio.utils.schedulers.TestSchedulerProvider
 import io.reactivex.rxjava3.core.Observable
 import okhttp3.ResponseBody.Companion.toResponseBody

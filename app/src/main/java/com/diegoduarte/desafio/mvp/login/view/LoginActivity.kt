@@ -1,4 +1,4 @@
-package com.diegoduarte.desafio.login.view
+package com.diegoduarte.desafio.mvp.login.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,8 +9,8 @@ import com.diegoduarte.desafio.R
 import com.diegoduarte.desafio.base.BaseActivity
 import com.diegoduarte.desafio.base.BasePresenter
 import com.diegoduarte.desafio.data.model.Token
-import com.diegoduarte.desafio.home.view.HomeActivity
-import com.diegoduarte.desafio.login.LoginContract
+import com.diegoduarte.desafio.mvp.home.view.HomeActivity
+import com.diegoduarte.desafio.mvp.login.LoginContract
 import com.diegoduarte.desafio.utils.Errors
 import com.google.android.material.textfield.TextInputLayout
 import javax.inject.Inject
@@ -68,10 +68,10 @@ class LoginActivity : BaseActivity(),
 
     // Hide the Loading Dialog
     override fun hideLoadingDialog() {
-        buttonEnter.isEnabled = true
-        loadingLayout.visibility = View.GONE
         editTextEmail.isEnabled = true
         editTextPassword.isEnabled = true
+        buttonEnter.isEnabled = true
+        loadingLayout.visibility = View.GONE
     }
 
     // Show the error
@@ -88,5 +88,10 @@ class LoginActivity : BaseActivity(),
         val intent = Intent(this, HomeActivity::class.java)
         intent.putExtra(HomeActivity.INTENT_EXTRA_TOKEN, token)
         startActivity(intent)
+    }
+
+    override fun onStop() {
+        hideLoadingDialog()
+        super.onStop()
     }
 }

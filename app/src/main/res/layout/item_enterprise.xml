@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="9.5dp"
-    android:paddingEnd="19dp"
-    android:paddingTop="9dp"
-    android:paddingBottom="9dp">
+    android:layout_marginStart="9.5dp"
+    android:layout_marginTop="9dp"
+    android:layout_marginEnd="19dp"
+    android:layout_marginBottom="9dp">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/enterprise_item_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/item_image_photo"
+                android:id="@+id/enterprise_item_image_photo"
                 android:layout_width="105dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="11dp"
@@ -37,30 +37,30 @@
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/item_txt_name"
+                android:id="@+id/enterprise_item_txt_name"
                 style="@style/TextStyle8"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14.5dp"
-                android:layout_marginEnd = "14.5dp"
                 android:layout_marginTop="14dp"
+                android:layout_marginEnd="14.5dp"
                 android:text="@string/content_txt_name"
-                app:layout_constraintStart_toEndOf="@id/item_image_photo"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/enterprise_item_image_photo"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/item_txt_type"
+                android:id="@+id/enterprise_item_txt_type"
                 style="@style/TextStyle6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4.5dp"
                 android:text="@string/content_txt_type"
-                app:layout_constraintStart_toStartOf="@id/item_txt_name"
-                app:layout_constraintTop_toBottomOf="@id/item_txt_name" />
+                app:layout_constraintStart_toStartOf="@id/enterprise_item_txt_name"
+                app:layout_constraintTop_toBottomOf="@id/enterprise_item_txt_name" />
 
             <TextView
-                android:id="@+id/item_txt_country"
+                android:id="@+id/enterprise_item_txt_country"
                 style="@style/TextStyle7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,8 +68,8 @@
                 android:layout_marginBottom="9.5dp"
                 android:text="@string/content_txt_country"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/item_txt_type"
-                app:layout_constraintTop_toBottomOf="@id/item_txt_type" />
+                app:layout_constraintStart_toStartOf="@id/enterprise_item_txt_type"
+                app:layout_constraintTop_toBottomOf="@id/enterprise_item_txt_type" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

@@ -18,7 +18,7 @@ import javax.inject.Singleton
 interface AppComponent: AndroidInjector<BaseApp> {
 
     override fun inject(app: BaseApp)
-    // Build the components o DI
+    // Build the all components for DI
     @Component.Builder
     interface Builder {
         @BindsInstance

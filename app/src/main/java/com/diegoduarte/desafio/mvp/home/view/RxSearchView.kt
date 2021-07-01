@@ -1,15 +1,21 @@
-package com.diegoduarte.desafio.utils
+package com.diegoduarte.desafio.mvp.home.view
 
 import androidx.appcompat.widget.SearchView
+import com.diegoduarte.desafio.base.UseCase
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class SearchObservable {
+class RxSearchView(private val searchView: SearchView, mThreadExecutor: Scheduler, mPostExecutionThread: Scheduler) :
+    UseCase<String, Void>(mThreadExecutor, mPostExecutionThread) {
 
-    // Create a searchView observable
-    fun fromView(searchView: SearchView): Observable<String>? {
+    override fun buildUseCaseObservable(params: Void?): Observable<String>? {
+        return buildObservable(searchView)
+    }
+
+    private fun buildObservable(searchView: SearchView): Observable<String>? {
         val subject = PublishSubject.create<String>()
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(s: String?): Boolean {
@@ -24,7 +30,7 @@ class SearchObservable {
             }
         })
         return subject
-            ?.debounce(100, TimeUnit.MILLISECONDS)
+            ?.debounce(50, TimeUnit.MILLISECONDS)
             ?.filter { text -> text.isNotEmpty()}
             ?.map{text -> text.lowercase(Locale.getDefault()).trim()}
             ?.distinctUntilChanged()

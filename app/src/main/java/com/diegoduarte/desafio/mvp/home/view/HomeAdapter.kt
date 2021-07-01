@@ -1,10 +1,11 @@
-package com.diegoduarte.desafio.home.view
+package com.diegoduarte.desafio.mvp.home.view
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
@@ -12,8 +13,9 @@ import com.bumptech.glide.load.resource.bitmap.Downsampler
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.diegoduarte.desafio.R
 import com.diegoduarte.desafio.data.model.Enterprise
+import com.diegoduarte.desafio.mvp.home.HomeContract
 
-class HomeAdapter: RecyclerView.Adapter<HomeAdapter.EnterpriseViewHolder>() {
+class HomeAdapter(private val view: HomeContract.View): RecyclerView.Adapter<HomeAdapter.EnterpriseViewHolder>() {
 
     // List of recyclerView itens
     private var enterprises : List<Enterprise> = ArrayList()
@@ -53,17 +55,19 @@ class HomeAdapter: RecyclerView.Adapter<HomeAdapter.EnterpriseViewHolder>() {
         RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
-        private val imagePhoto: ImageView = itemView.findViewById(R.id.item_image_photo)
-        private val textName: TextView = itemView.findViewById(R.id.item_txt_name)
-        private val textCountry: TextView = itemView.findViewById(R.id.item_txt_country)
-        private val textType: TextView = itemView.findViewById(R.id.item_txt_type)
+        private val imagePhoto: ImageView = itemView.findViewById(R.id.enterprise_item_image_photo)
+        private val textName: TextView = itemView.findViewById(R.id.enterprise_item_txt_name)
+        private val textCountry: TextView = itemView.findViewById(R.id.enterprise_item_txt_country)
+        private val textType: TextView = itemView.findViewById(R.id.enterprise_item_txt_type)
+        private val card: CardView = itemView.findViewById(R.id.enterprise_item_card)
 
         init{
+            card.setOnClickListener(this)
             itemView.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {
-
+            view.onItemClick(enterprises[adapterPosition])
         }
 
         fun bindItem(enterprise: Enterprise) {

@@ -1,4 +1,4 @@
-package com.diegoduarte.desafio.home.view
+package com.diegoduarte.desafio.mvp.home.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,14 +14,11 @@ import com.diegoduarte.desafio.base.BaseActivity
 import com.diegoduarte.desafio.base.BaseObserver
 import com.diegoduarte.desafio.base.BasePresenter
 import com.diegoduarte.desafio.data.model.Enterprise
-import com.diegoduarte.desafio.data.model.Enterprises
-import com.diegoduarte.desafio.data.model.LoginResponse
-import com.diegoduarte.desafio.home.HomeContract
-import com.diegoduarte.desafio.login.view.LoginActivity
-import com.diegoduarte.desafio.utils.SearchObservable
+import com.diegoduarte.desafio.mvp.enterprise.view.EnterpriseActivity
+import com.diegoduarte.desafio.mvp.home.HomeContract
+import com.diegoduarte.desafio.mvp.login.view.LoginActivity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
-import retrofit2.Response
 import javax.inject.Inject
 
 
@@ -43,7 +40,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     // Instance all view objects
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setSupportActionBar(findViewById(R.id.home_toolbar))
+        setSupportActionBar(findViewById(R.id.enterprise_toolbar))
         layoutHome = findViewById(R.id.home_layout_welcome)
         layoutSearchEmpty = findViewById(R.id.home_layout_search_empty)
         initializeRecyclerView()
@@ -64,9 +61,8 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         searchView = searchViewMenuItem.actionView as SearchView
 
         // Instance the searchView Observable
-        rxSearchView = RxSearchView(SearchObservable().fromView(searchView),
-        Schedulers.io(),
-        AndroidSchedulers.mainThread())
+        rxSearchView = RxSearchView(searchView, Schedulers.io(),
+            AndroidSchedulers.mainThread())
         val disposable = rxSearchView.execute(SearchViewObserver(),null)
         (presenter as BasePresenter).addDisposable(disposable)
 
@@ -95,7 +91,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerView.layoutManager = layoutManager
         recyclerView.setItemViewCacheSize(4)
-        recyclerView.adapter = HomeAdapter()
+        recyclerView.adapter = HomeAdapter(this)
 
     }
 
@@ -134,10 +130,16 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         Toast.makeText(this,"A sessão expirou.",Toast.LENGTH_LONG).show()
     }
 
+    override fun onItemClick(enterprise: Enterprise) {
+        val intent = Intent(this, EnterpriseActivity::class.java)
+        intent.putExtra(EnterpriseActivity.INTENT_EXTRA_ENTERPRISE, enterprise)
+        startActivity(intent)
+    }
+
     inner class SearchViewObserver: BaseObserver<String>(){
         override fun onNext(t: String) {
             super.onNext(t)
-            presenter.searchByName(t.toString())
+            presenter.searchByName(t)
         }
     }
 }
