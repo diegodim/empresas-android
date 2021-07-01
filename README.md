@@ -1,4 +1,9 @@
 ![N|Solid](logo_ioasys.png)
+
+# README #
+
+Estes documento README tem como objetivo fornecer as informações necessárias para realização do projeto Empresas.
+
 ### Bibliotecas ###
 
 * Mockito: Teste unitários dos Presenters.
@@ -26,10 +31,6 @@
 * Abra no Android Studio.
 * De um `Clean` no projeto.
 * Depois de um `Run` no projeto.
-
-# README #
-
-Estes documento README tem como objetivo fornecer as informações necessárias para realização do projeto Empresas.
 
 ### O QUE FAZER ? ###
 
