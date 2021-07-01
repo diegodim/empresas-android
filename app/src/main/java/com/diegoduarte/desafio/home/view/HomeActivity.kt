@@ -11,13 +11,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.diegoduarte.desafio.R
 import com.diegoduarte.desafio.base.BaseActivity
+import com.diegoduarte.desafio.base.BaseObserver
 import com.diegoduarte.desafio.base.BasePresenter
 import com.diegoduarte.desafio.data.model.Enterprise
+import com.diegoduarte.desafio.data.model.Enterprises
+import com.diegoduarte.desafio.data.model.LoginResponse
 import com.diegoduarte.desafio.home.HomeContract
 import com.diegoduarte.desafio.login.view.LoginActivity
 import com.diegoduarte.desafio.utils.SearchObservable
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import retrofit2.Response
 import javax.inject.Inject
 
 
@@ -31,10 +35,12 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     private lateinit var recyclerView: RecyclerView
     private lateinit var layoutHome: View
     private lateinit var layoutSearchEmpty: View
-
+    private lateinit var rxSearchView: RxSearchView
+    // Inject the object of presenter
     @Inject
     lateinit var presenter: HomeContract.Presenter
 
+    // Instance all view objects
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setSupportActionBar(findViewById(R.id.home_toolbar))
@@ -44,23 +50,27 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         presenter.onCreate()
     }
 
+    // Set the content id for on BaseActivity
     override fun getContent(): Int = R.layout.activity_home
 
+    // Set the presenter on hte BaseActivity
     override fun getPresenter(): BasePresenter = presenter as BasePresenter
 
+
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        // Prepare search view
         menuInflater.inflate(R.menu.home_menu, menu)
         val searchViewMenuItem: MenuItem = menu.findItem(R.id.action_search)
         searchView = searchViewMenuItem.actionView as SearchView
 
-        val disposable = SearchObservable()
-            .fromView(searchView)
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribeOn(Schedulers.io())
-            ?.subscribe{ presenter.searchByName(it.toString())}
+        // Instance the searchView Observable
+        rxSearchView = RxSearchView(SearchObservable().fromView(searchView),
+        Schedulers.io(),
+        AndroidSchedulers.mainThread())
+        val disposable = rxSearchView.execute(SearchViewObserver(),null)
+        (presenter as BasePresenter).addDisposable(disposable)
 
-        (presenter as BasePresenter).addDisposable(disposable!!)
-
+        // Logic for search view states
         searchViewMenuItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
                 searchView.queryHint = getString(R.string.content_search_view)
@@ -76,6 +86,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         return super.onPrepareOptionsMenu(menu)
     }
 
+    // Setup recycler View
     private fun initializeRecyclerView() {
 
         recyclerView = findViewById(R.id.home_recycler_view)
@@ -88,6 +99,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
     }
 
+    // Input data on recyclerView
     override fun showEnterprises(enterprises: List<Enterprise>) {
         if(searchView.query.isNotEmpty()) {
             recyclerView.visibility = View.VISIBLE
@@ -97,6 +109,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         }
     }
 
+    // Show when has no value on the search
     override fun showEmptySearch() {
         if(searchView.query.isNotEmpty()) {
             recyclerView.visibility = View.GONE
@@ -105,6 +118,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         }
     }
 
+    // Show the first layout of activity
     override fun showHomeLayout(){
         recyclerView.visibility = View.GONE
         layoutHome.visibility = View.VISIBLE
@@ -112,10 +126,18 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
     }
 
+    // return back to LoginActivity if the token expire
     override fun returnToLogin() {
         val intent = Intent(this, LoginActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
         Toast.makeText(this,"A sessão expirou.",Toast.LENGTH_LONG).show()
+    }
+
+    inner class SearchViewObserver: BaseObserver<String>(){
+        override fun onNext(t: String) {
+            super.onNext(t)
+            presenter.searchByName(t.toString())
+        }
     }
 }

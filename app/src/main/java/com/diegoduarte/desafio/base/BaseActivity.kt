@@ -6,16 +6,20 @@ import dagger.android.support.DaggerAppCompatActivity
 
 abstract class BaseActivity: DaggerAppCompatActivity() {
 
+    // Create the base activit instance and content view
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(getContent())
     }
 
+    // Get the conte ind
     abstract fun getContent(): Int
 
+    // get the base presenter
     abstract fun getPresenter(): BasePresenter
 
+    // Dispose all observables ans clear the cash
     override fun onDestroy() {
         getPresenter().onDestroy()
         cacheDir.deleteRecursively()

@@ -11,6 +11,7 @@ import retrofit2.http.*
 
 interface ApiService {
 
+    // Login api interface
     @POST("users/auth/sign_in")
     @FormUrlEncoded
     fun login(
@@ -18,11 +19,13 @@ interface ApiService {
         @Field("password") password: String?
     ): Observable<Response<LoginResponse>>
 
+    // Search enterprise api interface
     @GET("enterprises")
     fun getEnterprise(
         @Query("name") name: String
     ): Observable<Response<Enterprises>>
 
+    // Get a enterprise by id api interface
     @GET("enterprises/{enterprise}")
     fun getEnterprise(
         @Path("enterprise") enterprise_id: Int

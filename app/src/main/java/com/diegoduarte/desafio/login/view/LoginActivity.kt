@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class LoginActivity : BaseActivity(),
     LoginContract.View {
-
+    // Inject the object of presenter
     @Inject
     lateinit var presenter: LoginContract.Presenter
 
@@ -26,6 +26,7 @@ class LoginActivity : BaseActivity(),
     private lateinit var editTextPassword: TextInputLayout
     private lateinit var loadingLayout: View
 
+    // Instance all view objects
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -50,17 +51,22 @@ class LoginActivity : BaseActivity(),
 
     }
 
+    // Set the content id for on BaseActivity
     override fun getContent(): Int = R.layout.activity_login
 
+    // Set the presenter on hte BaseActivity
     override fun getPresenter(): BasePresenter = presenter as BasePresenter
 
+    // Show the Loading Dialog
     override fun showLoadingDialog() {
         buttonEnter.isEnabled = false
+        loadingLayout.bringToFront()
         loadingLayout.visibility = View.VISIBLE
         editTextEmail.isEnabled = false
         editTextPassword.isEnabled = false
     }
 
+    // Hide the Loading Dialog
     override fun hideLoadingDialog() {
         buttonEnter.isEnabled = true
         loadingLayout.visibility = View.GONE
@@ -68,6 +74,7 @@ class LoginActivity : BaseActivity(),
         editTextPassword.isEnabled = true
     }
 
+    // Show the error
     override fun showError(error: Errors) {
         editTextEmail.error = " "
         when(error){
@@ -76,6 +83,7 @@ class LoginActivity : BaseActivity(),
         }
     }
 
+    // Call the HomeActivity
     override fun attemptLogin(token: Token) {
         val intent = Intent(this, HomeActivity::class.java)
         intent.putExtra(HomeActivity.INTENT_EXTRA_TOKEN, token)

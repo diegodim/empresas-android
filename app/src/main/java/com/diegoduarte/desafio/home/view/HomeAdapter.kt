@@ -15,9 +15,10 @@ import com.diegoduarte.desafio.data.model.Enterprise
 
 class HomeAdapter: RecyclerView.Adapter<HomeAdapter.EnterpriseViewHolder>() {
 
-
+    // List of recyclerView itens
     private var enterprises : List<Enterprise> = ArrayList()
 
+    // Inflate a item of recyclerView
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
             HomeAdapter.EnterpriseViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -25,23 +26,29 @@ class HomeAdapter: RecyclerView.Adapter<HomeAdapter.EnterpriseViewHolder>() {
         return EnterpriseViewHolder(view)
     }
 
+    // Set value of item of recyclerView
     override fun onBindViewHolder(holder: HomeAdapter.EnterpriseViewHolder,
                                   position: Int) {
         holder.bindItem(enterprises[position])
     }
 
+    // Get the quantity of the recyclerView
     override fun getItemCount(): Int = enterprises.size
 
+    // recycle items from memory
     override fun onViewRecycled(holder: EnterpriseViewHolder) {
 
         holder.clearView()
         super.onViewRecycled(holder)
     }
 
+    // Set data list an update recyclerView
     fun setList(listEnterprise: List<Enterprise>){
         enterprises = listEnterprise
         notifyDataSetChanged()
     }
+
+    // Set the value view objects
     inner class EnterpriseViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView),
         View.OnClickListener {

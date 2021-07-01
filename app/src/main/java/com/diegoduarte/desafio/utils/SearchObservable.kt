@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit
 
 class SearchObservable {
 
+    // Create a searchView observable
     fun fromView(searchView: SearchView): Observable<String>? {
         val subject = PublishSubject.create<String>()
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

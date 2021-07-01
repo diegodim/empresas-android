@@ -13,6 +13,7 @@ import dagger.Provides
 @Module
 class HomeModule {
 
+    // Provide a Token from then intent just only on HomeScope
     @HomeScope
     @Provides
     fun provideToken(activity: HomeActivity): Token {
@@ -22,10 +23,12 @@ class HomeModule {
         return activity.intent.extras?.getParcelable(HomeActivity.INTENT_EXTRA_TOKEN)!!
     }
 
+    //Provide a View from then intent just only on HomeScope
     @HomeScope
     @Provides
     fun provideView(activity: HomeActivity) = activity as HomeContract.View
 
+    //Provide a Presenter from then intent just only on HomeScope
     @HomeScope
     @Provides
     fun providePresenter(repository: Repository,

@@ -1,10 +1,14 @@
 package com.diegoduarte.desafio.login
 
+import com.diegoduarte.desafio.base.BaseObserver
 import com.diegoduarte.desafio.base.BasePresenter
+import com.diegoduarte.desafio.data.model.LoginResponse
 import com.diegoduarte.desafio.data.model.Token
 import com.diegoduarte.desafio.data.source.Repository
+import com.diegoduarte.desafio.login.domain.LoginToServer
 import com.diegoduarte.desafio.utils.Errors
 import com.diegoduarte.desafio.utils.schedulers.SchedulerProvider
+import retrofit2.Response
 
 
 class LoginPresenter(
@@ -13,37 +17,46 @@ class LoginPresenter(
     val schedulerProvider: SchedulerProvider
 ): BasePresenter(), LoginContract.Presenter {
 
+    private val loginToServer: LoginToServer = LoginToServer(repository,
+        schedulerProvider.io(),
+        schedulerProvider.ui())
 
 
     override fun login(email: String, password: String) {
         view.showLoadingDialog()
-        val disposable = repository.login(email, password)
-            .observeOn(schedulerProvider.ui())
-            ?.subscribeOn(schedulerProvider.io())
-            ?.subscribe(
-                {
 
-                    if (it.isSuccessful) {
-                        val token = Token()
-                        token.access_token = it.headers().get("access-token")
-                        token.uid = it.headers().get("uid")
-                        token.client = it.headers().get("client")
-                        view.attemptLogin(token)
+        val disposable = loginToServer.execute(LoginObserver(),
+            LoginToServer.Params.forUser(email, password))
 
-                    }else{
+        addDisposable(disposable)
+    }
 
-                        view.showError(Errors.LOGIN_ERROR)
-                    }
-                },
-                {
-                    view.showError(Errors.INTERNET_ERROR)
-                    view.hideLoadingDialog()
-                },
-                {
-                    view.hideLoadingDialog()
-                }
-            )
-        addDisposable(disposable!!)
+    inner class LoginObserver: BaseObserver<Response<LoginResponse>>() {
+        override fun onNext(t: Response<LoginResponse>) {
+            if (t.isSuccessful) {
+                // If the login Auth successful
+                val token = Token()
+                token.access_token = t.headers().get("access-token")
+                token.uid = t.headers().get("uid")
+                token.client = t.headers().get("client")
+                view.attemptLogin(token)
+
+            }else{
+                // If the login Auth error
+                view.showError(Errors.LOGIN_ERROR)
+            }
+        }
+
+        override fun onError(exception: Throwable) {
+            // If has any error
+            view.showError(Errors.INTERNET_ERROR)
+            view.hideLoadingDialog()
+        }
+
+        override fun onComplete() {
+            // if observable complete
+            view.hideLoadingDialog()
+        }
     }
 
 }

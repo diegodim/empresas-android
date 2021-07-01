@@ -7,6 +7,7 @@ import okhttp3.Response
 
 class Interceptor(private val token: Token) : Interceptor {
 
+    // Create a interface with oauth2 token
     override fun intercept(chain: Interceptor.Chain): Response {
         var request: Request = chain.request()
 

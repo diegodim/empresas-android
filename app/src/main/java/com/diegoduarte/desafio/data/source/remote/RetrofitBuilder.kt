@@ -7,12 +7,14 @@ import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 
 class RetrofitBuilder {
 
     private val baseUrl = "https://empresas.ioasys.com.br/api/v1/"
 
+    // Build retrofit with a Gson converter
     private fun buildRetrofit(): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
@@ -23,7 +25,7 @@ class RetrofitBuilder {
 
     }
 
-
+    // Build a OkHttp client
     private fun buildClient(): OkHttpClient {
 
         val builder:OkHttpClient.Builder = OkHttpClient.Builder()
@@ -32,15 +34,19 @@ class RetrofitBuilder {
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         builder.addNetworkInterceptor(interceptor)
 
-        //builder.addInterceptor(Interceptor(""))
+        builder.connectTimeout(20, TimeUnit.SECONDS)
+        builder.writeTimeout(20, TimeUnit.SECONDS)
+        builder.readTimeout(20, TimeUnit.SECONDS)
 
         return builder.build()
     }
 
+    // Create a service without Auth
     fun createService(): ApiService {
         return buildRetrofit().create(ApiService::class.java)
     }
 
+    // Create a service with Auth
     fun createService( token: Token): ApiService {
         val newClient: OkHttpClient = buildClient()
             .newBuilder().

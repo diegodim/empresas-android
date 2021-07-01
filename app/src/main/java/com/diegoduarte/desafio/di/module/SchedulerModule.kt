@@ -9,6 +9,7 @@ import javax.inject.Singleton
 @Module
 class SchedulerModule {
 
+    //Provide a Schedulers types for all application
     @Singleton
     @Provides
     fun provideSchedulers() = AppSchedulerProvider() as SchedulerProvider

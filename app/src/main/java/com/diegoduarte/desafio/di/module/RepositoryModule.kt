@@ -9,6 +9,7 @@ import javax.inject.Singleton
 @Module
 class RepositoryModule {
 
+    //Provide a repository for all application
     @Singleton
     @Provides
     fun provideMoviesRepository() = RemoteRepository() as Repository

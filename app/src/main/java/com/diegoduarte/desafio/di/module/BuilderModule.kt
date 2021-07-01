@@ -10,10 +10,12 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class BuilderModule {
 
+    // Build the modules for LoginActivity
     @LoginScope
     @ContributesAndroidInjector(modules = [LoginModule::class])
     abstract fun bindMoviesActivity(): LoginActivity
 
+    // Build the modules for HomeActivity
     @HomeScope
     @ContributesAndroidInjector(modules = [HomeModule::class])
     abstract fun bindMovieActivity(): HomeActivity
