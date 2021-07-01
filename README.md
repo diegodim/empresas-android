@@ -4,7 +4,7 @@
 
 Estes documento README tem como objetivo fornecer as informações necessárias para realização do projeto Empresas.
 
-### Bibliotecas ###
+### Bibliotecas ###
 
 * Mockito: Teste unitários dos Presenters.
 * Leakcanary: Detecção de vazamento de memória.
@@ -15,7 +15,7 @@ Estes documento README tem como objetivo fornecer as informações necessárias 
 * Dagger: Injeção de dependência.
 * Glide: Download e cache de imagens.
 
-### Se houve-se mais tempo ###
+### Se houve-se mais tempo ###
 
 * Utilizaria Fragment nas views de Login e Home ao inves de Activity.
 * Utilizaria injeção de dependência em mais unidades do meu código.
@@ -25,7 +25,7 @@ Estes documento README tem como objetivo fornecer as informações necessárias 
 * Utilizaria bibliotecas do Android JetPack, e arquitetura MVVM.
 * Revisar todos meus comentários, warnings e layouts.
 
-### Como executar ##
+### Como executar ###
 
 * Faça um clone do repositório.
 * Abra no Android Studio.
