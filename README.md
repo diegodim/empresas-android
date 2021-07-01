@@ -1,4 +1,31 @@
 ![N|Solid](logo_ioasys.png)
+### Bibliotecas ###
+
+* Mockito: Teste unitários dos Presenters.
+* Leakcanary: Detecção de vazamento de memória.
+* Retrofit: Requisições de API.
+* GSON: Parse dos dados JSON da API.
+* OkHttp: Cliente de conexão Http.
+* RxJava e RxAndroid: Utilização de eventos e componentes assíncronos.
+* Dagger: Injeção de dependência.
+* Glide: Download e cache de imagens.
+
+### Se houve-se mais tempo ###
+
+* Utilizaria Fragment nas views de Login e Home ao inves de Activity.
+* Utilizaria injeção de dependência em mais unidades do meu código.
+* Salvaria a autenticação da sessão utilizando o Realm Database ou Room.
+* Realizaria os testes instrumentados para UI utilizando o AndroidJUNIT4.
+* Revisaria todo o meu código utilizando SOLID e Design Partner.
+* Utilizaria bibliotecas do Android JetPack, e arquitetura MVVM.
+* Revisar todos meus comentários, warnings e layouts.
+
+### Como executar ##
+
+* Faça um clone do repositório.
+* Abra no Android Studio.
+* De um `Clean` no projeto.
+* Depois de um `Run` no projeto.
 
 # README #
 

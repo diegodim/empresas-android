@@ -12,12 +12,12 @@ import dagger.Provides
 @Module
 class LoginModule {
 
-    //Provide a View from then intent just only on LoginScope
+    //Provide a View only on LoginScope
     @LoginScope
     @Provides
     fun provideView(activity: LoginActivity) = activity as LoginContract.View
 
-    //Provide a Presenter from then intent just only on LoginScope
+    //Provide a Presenter just only on LoginScope
     @LoginScope
     @Provides
     fun providePresenter(repository: Repository,

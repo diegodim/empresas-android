@@ -19,12 +19,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="?attr/actionBarSize">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/enterprise_image_photo"
@@ -48,10 +48,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="19dp"
+                android:layout_marginBottom="19dp"
                 android:layout_marginEnd="30dp"
                 android:text="@string/content_txt_enterprise_description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/enterprise_image_photo" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

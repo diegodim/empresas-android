@@ -33,7 +33,7 @@ class LoginPresenter(
 
     inner class LoginObserver: BaseObserver<Response<LoginResponse>>() {
         override fun onNext(t: Response<LoginResponse>) {
-            if (t.isSuccessful) {
+            if (t.isSuccessful && t.body()!!.success) {
                 // If the login Auth successful
                 val token = Token()
                 token.access_token = t.headers().get("access-token")

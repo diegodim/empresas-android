@@ -10,7 +10,7 @@ import dagger.Provides
 
 @Module
 class EnterpriseModule {
-
+    // Provide a Enterprise from then intent just only on EnterpriseScope
     @EnterpriseScope
     @Provides
     fun provideEnterprise(activity: EnterpriseActivity): Enterprise {
@@ -19,11 +19,12 @@ class EnterpriseModule {
         }
         return activity.intent.extras?.getParcelable(EnterpriseActivity.INTENT_EXTRA_ENTERPRISE)!!
     }
-
+    //Provide a View just only on EnterpriseScope
     @EnterpriseScope
     @Provides
     fun provideView(activity: EnterpriseActivity) = activity as EnterpriseContract.View
 
+    //Provide a Presenter just only on EnterpriseScope
     @EnterpriseScope
     @Provides
     fun providePresenter(view: EnterpriseContract.View, enterprise: Enterprise)
