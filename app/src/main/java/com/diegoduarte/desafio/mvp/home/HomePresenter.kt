@@ -23,7 +23,6 @@ class HomePresenter(
 
     // Create the presenter
     override fun onCreate() {
-        super.onCreate()
         view.showHomeLayout()
     }
 

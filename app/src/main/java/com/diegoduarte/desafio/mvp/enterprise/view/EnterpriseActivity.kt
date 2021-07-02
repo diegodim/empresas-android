@@ -50,7 +50,7 @@ class EnterpriseActivity : BaseActivity(), EnterpriseContract.View {
             .set(Downsampler.DECODE_FORMAT, DecodeFormat.PREFER_RGB_565)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(imagePhoto)
-        supportActionBar?.title = enterprise.enterprise_name
+        supportActionBar?.title = enterprise.enterpriseName
         textDescription.text = enterprise.description
 
     }

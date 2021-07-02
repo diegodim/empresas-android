@@ -41,7 +41,7 @@ class LoginPresenterUnitTest {
         val token = Token("123456", "321", "98745")
         val body = LoginResponse(true, ArrayList())
         val a = MockResponse()
-            .addHeader("access-token", token.access_token )
+            .addHeader("access-token", token.accessToken )
             .addHeader("uid", token.uid)
             .addHeader("client", token.client)
             .setResponseCode(200)

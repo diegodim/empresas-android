@@ -1,10 +1,12 @@
 package com.diegoduarte.desafio.data.model
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class EnterpriseType(
     val id: Int,
-    val enterprise_type_name: String
+    @SerializedName("enterprise_type_name")
+    val enterpriseTypeName: String
 ): Parcelable

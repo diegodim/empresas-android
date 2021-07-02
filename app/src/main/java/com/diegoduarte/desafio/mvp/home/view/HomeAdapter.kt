@@ -79,9 +79,9 @@ class HomeAdapter(private val view: HomeContract.View): RecyclerView.Adapter<Hom
                 .set(Downsampler.DECODE_FORMAT, DecodeFormat.PREFER_RGB_565)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(imagePhoto)
-            textName.text = enterprise.enterprise_name
+            textName.text = enterprise.enterpriseName
             textCountry.text = enterprise.country
-            textType.text = enterprise.enterprise_type.enterprise_type_name
+            textType.text = enterprise.enterpriseType.enterpriseTypeName
         }
 
         fun clearView (){

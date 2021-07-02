@@ -14,7 +14,7 @@ class Interceptor(private val token: Token) : Interceptor {
         val builder: Request.Builder = request.newBuilder()
 
 
-        builder.addHeader("access-token", token.access_token.toString())
+        builder.addHeader("access-token", token.accessToken.toString())
         builder.addHeader("uid", token.uid.toString())
         builder.addHeader("client", token.client.toString())
 

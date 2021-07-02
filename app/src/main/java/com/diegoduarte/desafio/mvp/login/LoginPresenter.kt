@@ -36,7 +36,7 @@ class LoginPresenter(
             if (t.isSuccessful && t.body()!!.success) {
                 // If the login Auth successful
                 val token = Token()
-                token.access_token = t.headers().get("access-token")
+                token.accessToken = t.headers().get("access-token")
                 token.uid = t.headers().get("uid")
                 token.client = t.headers().get("client")
                 view.attemptLogin(token)
