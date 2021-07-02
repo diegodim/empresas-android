@@ -28,6 +28,6 @@ interface ApiService {
     // Get a enterprise by id api interface
     @GET("enterprises/{enterprise}")
     fun getEnterprise(
-        @Path("enterprise") enterprise_id: Int
+        @Path("enterprise") enterpriseId: Int
     ): Observable<Response<Enterprise>>
 }
