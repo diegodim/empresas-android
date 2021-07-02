@@ -4,6 +4,9 @@
 
 Estes documento README tem como objetivo fornecer as informações necessárias para realização do projeto Empresas.
 
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=diegodim_empresas-android&metric=security_rating)](https://sonarcloud.io/dashboard?id=diegodim_empresas-android) 
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=diegodim_empresas-android&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=diegodim_empresas-android)
+
 ### Bibliotecas ###
 
 * Mockito: Teste unitários dos Presenters.
