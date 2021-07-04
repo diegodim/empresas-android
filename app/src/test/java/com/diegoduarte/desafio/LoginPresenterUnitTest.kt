@@ -54,6 +54,7 @@ class LoginPresenterUnitTest {
         //then
         then(viewMock).should(times(1)).showLoadingDialog()
         then(viewMock).should(times(1)).attemptLogin(token)
+        then(viewMock).should(times(1)).hideLoadingDialog()
         then(viewMock).shouldHaveNoMoreInteractions()
     }
 

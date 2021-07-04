@@ -1,33 +1,39 @@
 package com.diegoduarte.desafio.mvp.login.view
 
-import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import com.diegoduarte.desafio.R
-import com.diegoduarte.desafio.base.BaseActivity
+import com.diegoduarte.desafio.base.BaseFragment
 import com.diegoduarte.desafio.base.BasePresenter
 import com.diegoduarte.desafio.data.model.Token
-import com.diegoduarte.desafio.databinding.ActivityLoginBinding
-import com.diegoduarte.desafio.mvp.home.view.HomeActivity
+import com.diegoduarte.desafio.databinding.FragmentLoginBinding
 import com.diegoduarte.desafio.mvp.login.LoginContract
 import com.diegoduarte.desafio.utils.Errors
 import javax.inject.Inject
 
-class LoginActivity : BaseActivity(),
+class LoginFragment : BaseFragment<FragmentLoginBinding>(),
     LoginContract.View {
     // Inject the object of presenter
     @Inject
     lateinit var presenter: LoginContract.Presenter
 
-    private lateinit var binding: ActivityLoginBinding
+    private var _binding: FragmentLoginBinding? = null
+
+    private val binding get() = _binding!!
 
     // Instance all view objects
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
+        _binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_login, container, false)
 
         binding.editTextEmail.editText?.addTextChangedListener {
             binding.editTextEmail.error = ""
@@ -44,6 +50,7 @@ class LoginActivity : BaseActivity(),
                 binding.editTextPassword.editText?.text.toString())
         }
 
+        return binding.root
     }
 
 
@@ -78,13 +85,18 @@ class LoginActivity : BaseActivity(),
 
     // Call the HomeActivity
     override fun attemptLogin(token: Token) {
-        val intent = Intent(this, HomeActivity::class.java)
-        intent.putExtra(HomeActivity.INTENT_EXTRA_TOKEN, token)
-        startActivity(intent)
+        requireView().findNavController()
+            .navigate(LoginFragmentDirections
+                .actionLoginFragmentToHomeFragment(token))
+
     }
 
-    override fun onStop() {
-        hideLoadingDialog()
-        super.onStop()
-    }
+
+    override var dataBiding: FragmentLoginBinding?
+        get() = binding
+        set(value) {
+            _binding = value
+        }
+
+
 }

@@ -33,6 +33,7 @@ class LoginPresenter(
 
     inner class LoginObserver: BaseObserver<Response<LoginResponse>>() {
         override fun onNext(t: Response<LoginResponse>) {
+            super.onNext(t)
             if (t.isSuccessful && t.body()!!.success) {
                 // If the login Auth successful
                 val token = Token()
@@ -44,17 +45,23 @@ class LoginPresenter(
             }else{
                 // If the login Auth error
                 view.showError(Errors.LOGIN_ERROR)
-                view.hideLoadingDialog()
+
             }
         }
 
         override fun onError(exception: Throwable) {
             // If has any error
+            super.onError(exception)
             view.showError(Errors.INTERNET_ERROR)
             view.hideLoadingDialog()
         }
 
+        override fun onComplete() {
+            super.onComplete()
+            view.hideLoadingDialog()
+        }
     }
+
 
 
 }

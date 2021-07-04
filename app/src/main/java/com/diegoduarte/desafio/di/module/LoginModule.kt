@@ -4,7 +4,7 @@ import com.diegoduarte.desafio.data.source.Repository
 import com.diegoduarte.desafio.di.scope.LoginScope
 import com.diegoduarte.desafio.mvp.login.LoginContract
 import com.diegoduarte.desafio.mvp.login.LoginPresenter
-import com.diegoduarte.desafio.mvp.login.view.LoginActivity
+import com.diegoduarte.desafio.mvp.login.view.LoginFragment
 import com.diegoduarte.desafio.utils.schedulers.SchedulerProvider
 import dagger.Module
 import dagger.Provides
@@ -15,7 +15,7 @@ class LoginModule {
     //Provide a View only on LoginScope
     @LoginScope
     @Provides
-    fun provideView(activity: LoginActivity) = activity as LoginContract.View
+    fun provideView(fragment: LoginFragment) = fragment as LoginContract.View
 
     //Provide a Presenter just only on LoginScope
     @LoginScope

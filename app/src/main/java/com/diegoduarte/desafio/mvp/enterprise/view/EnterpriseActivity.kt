@@ -7,14 +7,14 @@ import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.resource.bitmap.Downsampler
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.diegoduarte.desafio.R
-import com.diegoduarte.desafio.base.BaseActivity
-import com.diegoduarte.desafio.base.BasePresenter
 import com.diegoduarte.desafio.data.model.Enterprise
 import com.diegoduarte.desafio.databinding.ActivityEnterpriseBinding
 import com.diegoduarte.desafio.mvp.enterprise.EnterpriseContract
+import dagger.android.AndroidInjection
+import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-class EnterpriseActivity : BaseActivity(), EnterpriseContract.View {
+class EnterpriseActivity : DaggerAppCompatActivity(), EnterpriseContract.View {
 
     companion object{
         const val INTENT_EXTRA_ENTERPRISE = "enterprise"
@@ -26,6 +26,7 @@ class EnterpriseActivity : BaseActivity(), EnterpriseContract.View {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_enterprise)
@@ -38,8 +39,6 @@ class EnterpriseActivity : BaseActivity(), EnterpriseContract.View {
         presenter.getEnterprise()
     }
 
-
-    override fun getPresenter(): BasePresenter = presenter as BasePresenter
 
     override fun showEnterprise(enterprise: Enterprise) {
 
