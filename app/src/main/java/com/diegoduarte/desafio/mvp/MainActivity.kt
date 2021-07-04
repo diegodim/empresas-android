@@ -1,10 +1,11 @@
-package com.diegoduarte.desafio
+package com.diegoduarte.desafio.mvp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import com.diegoduarte.desafio.R
 import com.diegoduarte.desafio.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

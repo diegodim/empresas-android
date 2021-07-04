@@ -14,7 +14,7 @@
         android:theme="@style/Theme.DesafioIOasys.NoActionBar">
         <activity android:name=".mvp.enterprise.view.EnterpriseActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity"
+        <activity android:name=".mvp.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
