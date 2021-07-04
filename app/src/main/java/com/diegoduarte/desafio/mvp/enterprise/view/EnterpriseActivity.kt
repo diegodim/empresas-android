@@ -1,8 +1,6 @@
 package com.diegoduarte.desafio.mvp.enterprise.view
 
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
@@ -13,7 +11,6 @@ import com.diegoduarte.desafio.base.BaseActivity
 import com.diegoduarte.desafio.base.BasePresenter
 import com.diegoduarte.desafio.data.model.Enterprise
 import com.diegoduarte.desafio.databinding.ActivityEnterpriseBinding
-import com.diegoduarte.desafio.databinding.ActivityHomeBinding
 import com.diegoduarte.desafio.mvp.enterprise.EnterpriseContract
 import javax.inject.Inject
 
@@ -27,8 +24,6 @@ class EnterpriseActivity : BaseActivity(), EnterpriseContract.View {
 
     private lateinit var binding: ActivityEnterpriseBinding
 
-    //private lateinit var textDescription: TextView
-    //private lateinit var imagePhoto: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
