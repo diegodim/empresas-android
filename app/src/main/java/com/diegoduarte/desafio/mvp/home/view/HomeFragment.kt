@@ -153,4 +153,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
         set(value) {
             _binding = value
         }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as AppCompatActivity?)!!.setSupportActionBar(null)
+    }
 }
