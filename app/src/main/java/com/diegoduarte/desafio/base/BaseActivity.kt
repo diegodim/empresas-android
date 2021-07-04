@@ -10,11 +10,8 @@ abstract class BaseActivity: DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(getContent())
     }
 
-    // Get the conte ind
-    abstract fun getContent(): Int
 
     // get the base presenter
     abstract fun getPresenter(): BasePresenter

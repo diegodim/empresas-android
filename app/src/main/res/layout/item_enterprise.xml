@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="enterprise"
+            type="com.diegoduarte.desafio.data.model.Enterprise" />
+    </data>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="9.5dp"
@@ -10,7 +20,7 @@
     android:layout_marginBottom="9dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/enterprise_item_card"
+        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -22,7 +32,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/enterprise_item_image_photo"
+                android:id="@+id/image_photo"
                 android:layout_width="105dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="11dp"
@@ -37,40 +47,41 @@
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/enterprise_item_txt_name"
+                android:id="@+id/text_name"
                 style="@style/TextStyle8"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14.5dp"
                 android:layout_marginTop="14dp"
                 android:layout_marginEnd="14.5dp"
-                android:text="@string/content_txt_name"
+                android:text="@{enterprise.enterpriseName}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/enterprise_item_image_photo"
+                app:layout_constraintStart_toEndOf="@id/image_photo"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/enterprise_item_txt_type"
+                android:id="@+id/text_type"
                 style="@style/TextStyle6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4.5dp"
-                android:text="@string/content_txt_type"
-                app:layout_constraintStart_toStartOf="@id/enterprise_item_txt_name"
-                app:layout_constraintTop_toBottomOf="@id/enterprise_item_txt_name" />
+                android:text="@{enterprise.enterpriseType.enterpriseTypeName}"
+                app:layout_constraintStart_toStartOf="@id/text_name"
+                app:layout_constraintTop_toBottomOf="@id/text_name" />
 
             <TextView
-                android:id="@+id/enterprise_item_txt_country"
+                android:id="@+id/text_country"
                 style="@style/TextStyle7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1.5dp"
                 android:layout_marginBottom="9.5dp"
-                android:text="@string/content_txt_country"
+                android:text="@{enterprise.country}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/enterprise_item_txt_type"
-                app:layout_constraintTop_toBottomOf="@id/enterprise_item_txt_type" />
+                app:layout_constraintStart_toStartOf="@id/text_type"
+                app:layout_constraintTop_toBottomOf="@id/text_type" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

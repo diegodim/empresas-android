@@ -3,16 +3,16 @@ package com.diegoduarte.desafio.mvp.login.view
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import androidx.core.widget.addTextChangedListener
+import androidx.databinding.DataBindingUtil
 import com.diegoduarte.desafio.R
 import com.diegoduarte.desafio.base.BaseActivity
 import com.diegoduarte.desafio.base.BasePresenter
 import com.diegoduarte.desafio.data.model.Token
+import com.diegoduarte.desafio.databinding.ActivityLoginBinding
 import com.diegoduarte.desafio.mvp.home.view.HomeActivity
 import com.diegoduarte.desafio.mvp.login.LoginContract
 import com.diegoduarte.desafio.utils.Errors
-import com.google.android.material.textfield.TextInputLayout
 import javax.inject.Inject
 
 class LoginActivity : BaseActivity(),
@@ -21,65 +21,58 @@ class LoginActivity : BaseActivity(),
     @Inject
     lateinit var presenter: LoginContract.Presenter
 
-    private lateinit var buttonEnter: Button
-    private lateinit var editTextEmail: TextInputLayout
-    private lateinit var editTextPassword: TextInputLayout
-    private lateinit var loadingLayout: View
+    private lateinit var binding: ActivityLoginBinding
 
     // Instance all view objects
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
-        loadingLayout = findViewById(R.id.loading_layout)
-        editTextEmail = findViewById(R.id.login_et_email)
-        editTextEmail.editText?.addTextChangedListener {
-            editTextEmail.error = ""
-            editTextPassword.error = ""
+
+        binding.editTextEmail.editText?.addTextChangedListener {
+            binding.editTextEmail.error = ""
+            binding.editTextPassword.error = ""
         }
-        editTextPassword = findViewById(R.id.login_et_password)
-        editTextPassword.editText?.addTextChangedListener {
-            editTextEmail.error = ""
-            editTextPassword.error = ""
+        binding.editTextPassword.editText?.addTextChangedListener {
+            binding.editTextEmail.error = ""
+            binding.editTextPassword.error = ""
         }
-        buttonEnter = findViewById(R.id.login_bt_enter)
-        buttonEnter.setOnClickListener{
-            editTextEmail.error = ""
-            editTextPassword.error = ""
-            presenter.login(editTextEmail.editText?.text.toString(),
-                editTextPassword.editText?.text.toString())
+        binding.buttonEnter.setOnClickListener{
+            binding.editTextEmail.error = ""
+            binding.editTextPassword.error = ""
+            presenter.login(binding.editTextEmail.editText?.text.toString(),
+                binding.editTextPassword.editText?.text.toString())
         }
 
     }
 
-    // Set the content id for on BaseActivity
-    override fun getContent(): Int = R.layout.activity_login
 
     // Set the presenter on hte BaseActivity
     override fun getPresenter(): BasePresenter = presenter as BasePresenter
 
     // Show the Loading Dialog
     override fun showLoadingDialog() {
-        buttonEnter.isEnabled = false
-        loadingLayout.bringToFront()
-        loadingLayout.visibility = View.VISIBLE
-        editTextEmail.isEnabled = false
-        editTextPassword.isEnabled = false
+        binding.buttonEnter.isEnabled = false
+        binding.layoutLoading.bringToFront()
+        binding.layoutLoading.visibility = View.VISIBLE
+        binding.editTextEmail.isEnabled = false
+        binding.editTextPassword.isEnabled = false
     }
 
     // Hide the Loading Dialog
     override fun hideLoadingDialog() {
-        editTextEmail.isEnabled = true
-        editTextPassword.isEnabled = true
-        buttonEnter.isEnabled = true
-        loadingLayout.visibility = View.GONE
+        binding.editTextEmail.isEnabled = true
+        binding.editTextPassword.isEnabled = true
+        binding.buttonEnter.isEnabled = true
+        binding.layoutLoading.visibility = View.GONE
     }
 
     // Show the error
     override fun showError(error: Errors) {
-        editTextEmail.error = " "
+        binding.editTextEmail.error = " "
         when(error){
-            Errors.INTERNET_ERROR->editTextPassword.error = getString(R.string.error_message_internet)
-            Errors.LOGIN_ERROR->editTextPassword.error = getString(R.string.error_message_login)
+            Errors.INTERNET_ERROR->binding.editTextPassword.error = getString(R.string.error_message_internet)
+            Errors.LOGIN_ERROR->binding.editTextPassword.error = getString(R.string.error_message_login)
         }
     }
 

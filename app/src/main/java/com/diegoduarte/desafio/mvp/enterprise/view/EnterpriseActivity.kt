@@ -3,6 +3,7 @@ package com.diegoduarte.desafio.mvp.enterprise.view
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.resource.bitmap.Downsampler
@@ -11,6 +12,8 @@ import com.diegoduarte.desafio.R
 import com.diegoduarte.desafio.base.BaseActivity
 import com.diegoduarte.desafio.base.BasePresenter
 import com.diegoduarte.desafio.data.model.Enterprise
+import com.diegoduarte.desafio.databinding.ActivityEnterpriseBinding
+import com.diegoduarte.desafio.databinding.ActivityHomeBinding
 import com.diegoduarte.desafio.mvp.enterprise.EnterpriseContract
 import javax.inject.Inject
 
@@ -22,21 +25,24 @@ class EnterpriseActivity : BaseActivity(), EnterpriseContract.View {
     @Inject
     lateinit var presenter: EnterpriseContract.Presenter
 
-    private lateinit var textDescription: TextView
-    private lateinit var imagePhoto: ImageView
+    private lateinit var binding: ActivityEnterpriseBinding
+
+    //private lateinit var textDescription: TextView
+    //private lateinit var imagePhoto: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setSupportActionBar(findViewById(R.id.enterprise_toolbar))
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_enterprise)
+
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        textDescription = findViewById(R.id.enterprise_text_description)
-        imagePhoto = findViewById(R.id.enterprise_image_photo)
+
 
         presenter.getEnterprise()
     }
 
-    override fun getContent(): Int = R.layout.activity_enterprise
 
     override fun getPresenter(): BasePresenter = presenter as BasePresenter
 
@@ -49,9 +55,8 @@ class EnterpriseActivity : BaseActivity(), EnterpriseContract.View {
             .centerInside()
             .set(Downsampler.DECODE_FORMAT, DecodeFormat.PREFER_RGB_565)
             .transition(DrawableTransitionOptions.withCrossFade())
-            .into(imagePhoto)
-        supportActionBar?.title = enterprise.enterpriseName
-        textDescription.text = enterprise.description
+            .into(binding.imagePhoto)
+        binding.enterprise = enterprise
 
     }
 

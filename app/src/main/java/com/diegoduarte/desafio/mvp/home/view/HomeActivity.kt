@@ -7,13 +7,14 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.diegoduarte.desafio.R
 import com.diegoduarte.desafio.base.BaseActivity
 import com.diegoduarte.desafio.base.BaseObserver
 import com.diegoduarte.desafio.base.BasePresenter
 import com.diegoduarte.desafio.data.model.Enterprise
+import com.diegoduarte.desafio.databinding.ActivityHomeBinding
 import com.diegoduarte.desafio.mvp.enterprise.view.EnterpriseActivity
 import com.diegoduarte.desafio.mvp.home.HomeContract
 import com.diegoduarte.desafio.mvp.login.view.LoginActivity
@@ -29,10 +30,10 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     }
 
     private lateinit var searchView: SearchView
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var layoutHome: View
-    private lateinit var layoutSearchEmpty: View
     private lateinit var rxSearchView: RxSearchView
+
+    private lateinit var binding: ActivityHomeBinding
+
     // Inject the object of presenter
     @Inject
     lateinit var presenter: HomeContract.Presenter
@@ -40,15 +41,15 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     // Instance all view objects
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setSupportActionBar(findViewById(R.id.enterprise_toolbar))
-        layoutHome = findViewById(R.id.home_layout_welcome)
-        layoutSearchEmpty = findViewById(R.id.home_layout_search_empty)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
+
+        setSupportActionBar(binding.toolbar)
+
         initializeRecyclerView()
         presenter.onCreate()
     }
 
-    // Set the content id for on BaseActivity
-    override fun getContent(): Int = R.layout.activity_home
 
     // Set the presenter on hte BaseActivity
     override fun getPresenter(): BasePresenter = presenter as BasePresenter
@@ -70,7 +71,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         searchViewMenuItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
                 searchView.queryHint = getString(R.string.content_search_view)
-                layoutHome.visibility = View.GONE
+                binding.layoutWelcome.visibility = View.GONE
                 return true
             }
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
@@ -85,40 +86,41 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     // Setup recycler View
     private fun initializeRecyclerView() {
 
-        recyclerView = findViewById(R.id.home_recycler_view)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.recycledViewPool.clear()
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        recyclerView.layoutManager = layoutManager
-        recyclerView.setItemViewCacheSize(4)
-        recyclerView.adapter = HomeAdapter(this)
+        //binding.recyclerView = findViewById(R.id.recycler_view)
+        binding.recyclerView.setHasFixedSize(true)
+        binding.recyclerView.recycledViewPool.clear()
+        val layoutManager = LinearLayoutManager(this,
+            LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.setItemViewCacheSize(4)
+        binding.recyclerView.adapter = HomeAdapter(this)
 
     }
 
     // Input data on recyclerView
     override fun showEnterprises(enterprises: List<Enterprise>) {
         if(searchView.query.isNotEmpty()) {
-            recyclerView.visibility = View.VISIBLE
-            layoutHome.visibility = View.GONE
-            layoutSearchEmpty.visibility = View.GONE
-            (recyclerView.adapter as HomeAdapter).setList(enterprises)
+            binding.recyclerView.visibility = View.VISIBLE
+            binding.layoutWelcome.visibility = View.GONE
+            binding.layoutSearchEmpty.visibility = View.GONE
+            (binding.recyclerView.adapter as HomeAdapter).setList(enterprises)
         }
     }
 
     // Show when has no value on the search
     override fun showEmptySearch() {
         if(searchView.query.isNotEmpty()) {
-            recyclerView.visibility = View.GONE
-            layoutHome.visibility = View.GONE
-            layoutSearchEmpty.visibility = View.VISIBLE
+            binding.recyclerView.visibility = View.GONE
+            binding.layoutWelcome.visibility = View.GONE
+            binding.layoutSearchEmpty.visibility = View.VISIBLE
         }
     }
 
     // Show the first layout of activity
     override fun showHomeLayout(){
-        recyclerView.visibility = View.GONE
-        layoutHome.visibility = View.VISIBLE
-        layoutSearchEmpty.visibility = View.GONE
+        binding.recyclerView.visibility = View.GONE
+        binding.layoutWelcome.visibility = View.VISIBLE
+        binding.layoutSearchEmpty.visibility = View.GONE
 
     }
 

@@ -30,7 +30,7 @@ class RxSearchView(private val searchView: SearchView, mThreadExecutor: Schedule
             }
         })
         return subject
-            ?.debounce(50, TimeUnit.MILLISECONDS)
+            ?.debounce(300, TimeUnit.MILLISECONDS)
             ?.filter { text -> text.isNotEmpty()}
             ?.map{text -> text.lowercase(Locale.getDefault()).trim()}
             ?.distinctUntilChanged()
